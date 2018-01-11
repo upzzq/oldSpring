@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="${basePath}/web/img/favicon.png">
+    <title>登陆</title>
+
+    <link href="${basePath}/web/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/web/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="${basePath}/web/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="${basePath}/web/css/style.css" rel="stylesheet">
+    <link href="${basePath}/web/css/style-responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${basePath}/web/icheck/skins/all.css">
+   
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    
+</head>
+
+  <body class="login-body" ng-app="loginModule">
+    <div class="container" ng-controller="loginController">
+      <form name="myForm" id="form1" method="post" class="form-signin form-horizontal" action="login.do">
+        <h2 class="form-signin-heading">马上登陆</h2>
+        <div class="login-wrap">
+        	<p class="text-danger" style="color:red;">${msg!}</p>
+  			<div class="form-group" ng-class="{'has-error':myForm.username.$touched && myForm.username.$invalid}">
+			    <label class="col-sm-3 control-label">用户名</label>
+			    <div class="col-sm-9">
+			      <input type="text" class="form-control" ng-required="true" ng-model="username" name="username" placeholder="用户名">
+			      <div ng-show="myForm.username.$touched && myForm.username.$error.required" class="alert alert-danger help-block">
+			      	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  	<span class="sr-only">Error:</span>
+			      	用户名不能为空
+			      </div>
+			    </div>
+			</div>
+			<div class="form-group" ng-class="{'has-error':myForm.password.$touched && myForm.password.$invalid}">
+			    <label class="col-sm-3 control-label">密码</label>
+			    <div class="col-sm-9">
+			      <input type="password" class="form-control" name="password" ng-model="password" ng-required="true" placeholder="密码">
+			      <div ng-show="myForm.password.$touched && myForm.password.$error.required" class="alert alert-danger help-block">
+			      	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  	<span class="sr-only">Error:</span>
+				  	密码不能为空
+			      </div>
+			    </div>
+			</div>
+			<div class="form-group" ng-class="{'has-error':myForm.yzm.$touched && myForm.yzm.$invalid}">
+			    <label class="col-sm-3 control-label">验证码</label>
+			    <div class="col-sm-7">
+			      <input type="text" class="form-control" maxlength="4" name="yzm" ng-model="yzm" ng-required="true" ng-minlength="4" placeholder="验证码">
+			      <div ng-show="myForm.yzm.$error.required && myForm.yzm.$touched" class="alert alert-danger help-block">
+			      	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  	<span class="sr-only">Error:</span>
+			      	验证码不能为空
+			      </div>
+			      
+			      <div ng-show="myForm.yzm.$error.minlength && myForm.yzm.$touched" class="alert alert-danger help-block">
+			      	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  	<span class="sr-only">Error:</span>
+			      	验证码输入有误
+			    </div>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label class="col-sm-3 control-label only"></label>
+			    <div class="col-sm-9">
+			     <img id="img" src="/supplies/yzm.do"/>
+			     <a href='javascript:changeImg()'><lable>看不清？</lable></a>
+			    </div>
+			</div>
+			
+            <div class="checkbox" style="padding-left: 0">
+                <input type="checkbox" name="remberMe"> 记住我
+                <span class="pull-right">
+                    <a data-toggle="modal" href="#myModal"> 忘记密码?</a>
+                </span>
+            </div>
+            <input type="button" class="btn btn-lg btn-login btn-block" value="登  陆" ng-disabled="myForm.$invalid" onclick="submit1()">
+            <div class="registration">
+            	 没有账号?<a href="registration.do">创建账号</a>
+            </div>
+            
+        </div>
+
+          <!-- Modal -->
+          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title">忘记密码 ?</h4>
+                      </div>
+                      <div class="modal-body">
+                          <p>输入你的邮箱地址重置密码</p>
+                          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                      </div>
+                      <div class="modal-footer">
+                          <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                          <button class="btn btn-success" type="button" >提交</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- modal -->
+
+      </form>
+    </div>
+	
+
+    <script src="${basePath}/web/js/jquery-1.8.3.min.js"></script>
+    <script src="${basePath}/web/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${basePath}/web/js/angular.js"></script>
+    <script type="text/javascript" src="${basePath}/web/icheck/icheck.min.js"></script>
+    <script type="text/javascript">
+    $(function(){
+		 $('input[name="remberMe"]').iCheck({
+    		checkboxClass: 'icheckbox_square',
+    		radioClass: 'iradio_square',
+    		increaseArea: '20%'
+  		 });
+	});
+    angular.module("loginModule",[])
+    .config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+        $httpProvider.defaults.transformRequest.unshift(function(data,headersGetter) {
+            var key, result = [];
+                for (key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        result.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
+                    }
+                }
+            return result.join("&");
+        });
+    }]).controller("loginController",["$scope","$http",function($scope,$http){
+    	$scope.login = function(){
+    		/* postCfg = {
+			    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			    transformRequest: function (data) {
+			        return $.param(data);
+			    }
+			}; */
+			//var data = {"username":$scope.username,"password":$scope.password,"yzm":$scope.yzm}
+	    	$http({
+				method:"post",
+				url:"/supplies/login.do",
+				data:{"username":$scope.username,"password":$scope.password,"yzm":$scope.yzm}
+			}).success(function(data){
+				alert(data);
+			}).error(function(data){
+				alert("222:"+data);
+			});
+			
+			/* $http.post("/supplies/login.do", data)
+		    .success(function (response) {
+		       
+		    }); */
+			
+    	}
+    	
+	}]);
+    
+    
+	function submit1(){
+		$("#form1").submit();
+	}
+	function changeImg(){
+        var img = document.getElementById("img"); 
+        img.src = "/supplies/yzm.do?date=" + new Date();;
+    }
+	</script>
+	
+	{{myForm.username.$error}}
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.supplies.dao.TaskScheduleJobMapper" >
+  <resultMap id="BaseResultMap" type="com.supplies.pojo.ScheduleJob" >
+    <id column="job_id" property="jobId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="job_group" property="jobGroup" jdbcType="VARCHAR" />
+    <result column="job_status" property="jobStatus" jdbcType="CHAR" />
+    <result column="cron_expression" property="cronExpression" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="bean_class" property="beanClass" jdbcType="VARCHAR" />
+    <result column="is_concurrent" property="isConcurrent" jdbcType="VARCHAR" />
+    <result column="spring_id" property="springId" jdbcType="VARCHAR" />
+    <result column="method_name" property="methodName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columnList">
+  	job_id,date_format(create_time,'%Y-%m-%d %H:%I:%s') create_time,convert(update_time,char) update_time,job_name,job_group,job_status,cron_expression,description,bean_class,is_concurrent,spring_id,method_name 
+  </sql>
+  
+  <select id="find" resultMap="BaseResultMap">
+  	select <include refid="columnList"/>
+  	from task_schedule_job
+  </select>
+  
+  <insert id="save" keyColumn="job_id" keyProperty="jobId" parameterType="ScheduleJob">
+  	insert into task_schedule_job (create_time,job_name,job_group,job_status,cron_expression,description,bean_class,is_concurrent,spring_id,method_name)
+  	values(now(),#{jobName},#{jobGroup},#{jobStatus},#{cronExpression},#{description},#{beanClass},#{isConcurrent},#{springId},#{methodName})
+  </insert>
+  
+  <update id="update" parameterType="ScheduleJob">
+  	<set>
+  		<if test="createTime != null">
+  			create_time = #{createTime}
+  		</if>
+  		<if test="updateTime != null">
+  			update_time = #{updateTime}
+  		</if>
+  		<if test="jobName != null and jobName != ''">
+  			job_name = #{jobName}
+  		</if>
+  		<if test="jobGroup != null and job_group != ''">
+  			job_group = #{jobGroup}
+  		</if>
+  		<if test="jobStatus != null and jobStatus != ''">
+  			job_status = #{jobStatus}
+  		</if>
+  		<if test="cronExpression != null and cronExpression != ''">
+  			cron_expression = #{cronExpression}
+  		</if>
+  		<if test="description != null and description != ''">
+  			description = #{description}
+  		</if>
+  		<if test="beanClass != null and bean_class != ''">
+  			bean_class = #{beanClass}
+  		</if>
+  		<if test="isConcurrent != null and isConcurrent != ''">
+  			is_concurrent = #{isConcurrent}
+  		</if>
+  		<if test="springId != null and springId != ''">
+  			spring_id = #{springId}
+  		</if>
+  		<if test="methodName != null and methodName != ''">
+  			method_name = {methodName}
+  		</if>
+  	</set>
+  </update>
+</mapper>

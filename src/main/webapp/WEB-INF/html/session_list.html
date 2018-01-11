@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="${basePath}/web/img/favicon.png">
+    <title>登陆</title>
+
+    <link href="${basePath}/web/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/web/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="${basePath}/web/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="${basePath}/web/css/style.css" rel="stylesheet">
+    <link href="${basePath}/web/css/style-responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${basePath}/web/icheck/skins/all.css">
+   
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    
+</head>
+
+  <body>
+  	<div><h2>当前在线人数:${sessionCount!}</h2></div>
+    <div class="container">
+      	<div class="table-responsive">
+			<table class="table table-hover">
+				<tr>
+					<th>会话Id</th>
+					<th>用户名</th>
+					<th>主机地址</th>
+					<th>最后访问时间</th>
+					<th>已强制退出</th>
+					<th>操作</th>
+				</tr>
+				<#list sessions as s>
+					<tr>
+						<td>${s.id}</td>
+						<td>${s.id}</td>
+						<td>${s.host}</td>
+						<td>${s.lastAccessTime?string("yyyy-MM-dd hh:mm:ss")}</td>
+						<td>${s.id}</td>
+						<td><a href="${basePath}/forcelogout.do?sessionId=${s.id}">强制退出</a></td>
+					</tr>
+				</#list>
+			</table>
+		</div>
+    </div>
+	
+
+    <script src="${basePath}/web/js/jquery-1.8.3.min.js"></script>
+    <script src="${basePath}/web/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${basePath}/web/js/angular.js"></script>
+    <script type="text/javascript" src="${basePath}/web/icheck/icheck.min.js"></script>
+    <script type="text/javascript" src="${basePath}/web/layer/layer.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		var msg = "${msg!}";
+		if(msg != ''){
+			layer.msg(msg);
+		}
+		
+	})
+	</script>
+
+    
+    
+
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"       
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd"
+        >
+        
+	<bean id="job" class="com.supplies.scheduler.CustomJob"/>
+	
+  <!--  <bean id="jobDetail"	class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject" ref="job"></property>
+		<property name="targetMethod" value="execute"></property>		
+		
+	</bean>
+	
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail"><ref bean="jobDetail"/></property>
+		每隔**执行一次 时间大小由小到大排列，顺序为秒分时天月年,？为无限   
+		<property name="cronExpression"><value>*/5 * * * * ?</value></property> 
+	</bean> 
+	
+	
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="default"> 
+		自动启动，默认自动
+		<property name="autoStartup" value="true"></property>
+		延迟10秒启动
+		<property name="startupDelay" value="10"></property>
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger"/>			
+			</list>  
+		</property> 
+	</bean>   -->
+	
+	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="default"/>
+        
+</beans>

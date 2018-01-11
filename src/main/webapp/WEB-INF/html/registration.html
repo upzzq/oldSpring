@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="/supplies/web/img/favicon.png">
+
+    <title>用户注册</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="${basePath}/web/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/web/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="${basePath}/web/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="${basePath}/web/css/style.css" rel="stylesheet">
+    <link href="${basePath}/web/css/style-responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${basePath}/web/icheck/skins/all.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    
+    <script type="text/javascript" src="${basePath}/web/js/jquery-1.8.3.min.js"></script>
+  	<script type="text/javascript" src="${basePath}/web/js/bootstrap.min.js"></script>
+  	<script type="text/javascript" src="${basePath}/web/js/angular.js"></script>
+  	<script type="text/javascript" src="${basePath}/web/icheck/icheck.min.js"></script>
+  	<script type="text/javascript">
+	$(function(){
+		$('input[name="agree"]').iCheck({
+	 		checkboxClass: 'icheckbox_square',
+	 		radioClass: 'iradio_square',
+	 		increaseArea: '20%'
+		});			
+	});
+	 
+	
+	angular.module("registerModule",[])
+    .config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+        $httpProvider.defaults.transformRequest.unshift(function(data,headersGetter) {
+            var key, result = [];
+                for (key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        result.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
+                    }
+                }
+            return result.join("&");
+        });
+    }]).controller("registeController",["$scope","$http",function($scope,$http){
+    	
+    	
+	}]);
+  	</script>
+</head>
+  <body class="login-body" ng-app="registerModule">
+	<div class="container" ng-controller="registeController">
+		<form name="registerForm" class="form-register form-horizontal" ng-submit="" novalidate>
+	        <h2 class="form-signin-heading">现在注册</h2>
+	        <div class="login-wrap">
+	        	<div class="form-group">
+		        	<div class="col-sm-5">
+		            	<p>输入你的个人信息 </p>
+		            </div>
+	        	</div>
+	            <div class="form-group">
+	            	<div class="col-sm-7">
+	            		<input type="text" class="form-control"  name="username" ng-model="registerInfo.username" ng-required="true"   placeholder="名 称">
+	            		<div ng-show="registerForm.username.$dirty && registerForm.username.$invalid">
+	            			<span ng-show="registerForm.username.$error.required">名称不能为空</span>
+	            		</div>
+	            	</div>
+	            	
+	            </div>
+	            <div class="form-group">
+		            <div class="col-sm-7">
+		            	<input type="text" class="form-control" name="address" ng-model="registerInfo.address" placeholder="地址">
+		            </div>
+		            <div ng-show="registerForm.address.$dirty && registerForm.address.$invalid">
+		            	<span ng-show="registerForm.address.$error.required">地址不能为空</span>
+		            </div>
+	            </div>
+	            <div class="form-group">
+		            <div class="col-sm-7">
+		            	<input type="email" class="form-control" name="email" ng-model="registerInfo.email" placeholder="电子邮箱">
+		            </div>
+		            <div ng-show="registerForm.email.$dirty && registerForm.email.$invalid">
+		            	<span ng-show="registerForm.email.$error.required">邮箱地址不能为空</span>
+		            	<span ng-show="registerForm.email.$error.email">邮箱地址格式不正确</span>
+		            </div>
+	            </div>
+	            <div class="form-group">
+		            <div class="col-sm-6">
+			            <label class="label_radio col-lg-6 col-sm-6" for="radio-01">
+			                    <input name="gender" ng-model="registerInfo.gender" value="1" type="radio" checked /> 男
+			                </label>
+			                <label class="label_radio col-lg-6 col-sm-6" for="radio-02">
+			                    <input name="gender" ng-model="registerInfo.gender" value="1" type="radio" /> 女
+			                </label>
+					</div>
+	            </div>
+	            <div class="form-group">
+	            	<div class="col-sm-5">
+	            		<p>输入你的用户信息</p>
+	            	</div>
+	            </div>
+	            <div class="form-group">
+	            	<div class="col-sm-7">
+	            		<input type="text" class="form-control" name="usercode" ng-model="registerInfo.usercode" ng-required="true" ng-minlength="6" ng-maxlength="18" ng-pattern="/^[a-zA-Z]{1}/" placeholder="用户名">
+	            	</div>
+	            	<div ng-show="registerForm.usercode.$pristine">用户名由6-18位字母开头的字符组成</div>
+	            	<div ng-show="registerForm.usercode.$dirty && registerForm.usercode.$invalid">
+	            		<span ng-show="registerForm.usercode.$error.required">用户名不能为空</span>
+	            		<span ng-show="registerForm.usercode.$error.minlength || registerForm.usercode.$error.maxlength">用户名由6-18位字母开头的字符组成</span>
+	            		<span ng-show="registerForm.usercode.$error.pattern">用户名必须以字母开头</span>
+	            	</div>
+	            	<!-- <sapn ng-show="registerForm.usercode.$dirty && registerForm.usercode.$error.maxlength">
+                    	用户名长度不能超过10位
+	                </span>
+	                <span ng-show="registerForm.usercode.$dirty && registerForm.usercode.$error.minlength">
+	                   	 用户名长度不能小于5位
+	                </span>
+	                <span ng-show="registerForm.usercode.$dirty && registerForm.usercode.$error.pattern">
+	                    	用户名必须已英文字母开始
+	                </span> -->
+	            </div>
+	            <div class="form-group">
+		            <div class="col-sm-7">
+		            	<input type="password" class="form-control" name="password" ng-model="registerInfo.password" ng_required="true" ng-minlength="6" ng-maxlength="18" ng-pattern="/^[a-zA-Z]{1}/" placeholder="密码">
+		            </div>
+		            <div ng-show="registerForm.password.$pristine">密码由6-18位字母开头的字符组成</div>
+		            <div ng-show="registerForm.password.$dirty && registerForm.password.$invalid">
+		            	<span ng-show="registerForm.password.$error.required">密码不能为空</span>
+		            	<span ng-show="registerForm.password.$error.minlength || registerForm.password.$error.maxlength">密码由6-18位字母开头的字符组成</span>
+		            	<span ng-show="registerForm.password.$error.pattern">密码必须由字母开头</span>
+		            </div>
+	            </div>
+	            <div class="form-group">
+	            	<div class="col-sm-7">
+	            		<input type="password" class="form-control" name="passwordConfirm" ng-model="registerInfo.passwordConfirm" ng-required="true" placeholder="确认密码">
+	           		</div>
+	           		<div ng-show="registerForm.passwordConfirm.$pristine">请再次输入密码</div>
+	           		<div ng-show="registerForm.passwordConfirm.$dirty && registerForm.passwordConfirm.$invalid">
+	           			<span ng-show="registerForm.passwordConfirm.required">请再次输入密码</span>
+	           			<span ng-show="registerForm.password.$dirty && registerForm.passwordConfirm != registerForm.password">两次密码输入不一致</span>
+	           		</div>
+	            </div>
+	            <div class="form-group">
+		            <div class="col-sm-12">
+			            <label>
+			                <input type="checkbox" id="agree"> 我同意服务条款和隐私政策。
+			            </label>
+		            </div>
+	            </div>
+	            
+	            <button class="btn btn-lg btn-login btn-block" type="submit">注册</button>
+	            <div class="registration">
+	                	已有账号?
+	                <a class="" href="login.do">登陆</a>
+	            </div>
+	        </div>
+		</form>
+    </div>
+    {{registerForm.usercode.$dirty}}，{{registerForm.usercode.$invalid}},{{registerForm.usercode.$error}}{{registerForm.usercode}}
+  </body>
+  
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supplies.dao.SysRolePermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.supplies.pojo.SysRolePermission" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="sys_role_id" property="sysRoleId" jdbcType="VARCHAR" />
+    <result column="sys_permission_id" property="sysPermissionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sys_role_id, sys_permission_id
+  </sql>
+  
+  <select id="find" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from sys_role_permission where id = 'ebc8a441-c6f9-11e4-b137-0adc305c3f21'
+  	<!-- SELECT * FROM `sys_role_permission` p left join sys_permission s on p.sys_permission_id = s.id -->
+  </select>
+  
+  
+</mapper>

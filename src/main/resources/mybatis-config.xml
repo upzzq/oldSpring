@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<!-- 注意标签顺序 -->
+	
+<!-- 	Properties（属性）
+	Settings（全局参数设置）
+	typeAliases（类型别名）
+	typeHandlers（类型处理器）
+	objectFactory（对象工厂）
+	plugins（插件）
+	environments（环境信息集合）
+    environment（单个环境信息）
+    transactionManager（事物）
+    dataSource（数据源）
+    mappers（映射器） -->
+  
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+			<!-- 所有表自动增长 -->
+		<setting name="useGeneratedKeys" value="true"/>
+			<!-- 自动映射 -->
+		<setting name="autoMappingBehavior" value="FULL"/>
+			<!-- 全局懒加载 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+			<!-- 按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+			<!-- 开启全局缓存 -->
+		<setting name="cacheEnabled" value="cacheEnabled"/>
+	</settings>  
+	
+	<!-- 简化bean别名 -->
+	<typeAliases>
+		<package name="com.supplies.pojo"/>
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<property name="helperDialect" value="mysql"/>
+			<property name="reasonable" value="true"/>
+			<property name="supportMethodsArguments" value="true"/>
+			<property name="params" value="pageNum=start;pageSize=limit;"/>
+			<property name="autoRuntimeDialect" value="true"/>
+		</plugin>
+	</plugins>
+	
+</configuration>
