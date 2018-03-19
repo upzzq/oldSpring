@@ -7,6 +7,10 @@ import com.supplies.vo.ActiveUserVO;
 
 public class BaseController {
 	
+	/**
+	 * 获取用户
+	 * @return
+	 */
 	public ActiveUserVO getLoginUser(){
 		//从shiro session 中获取 ActiveUser
 		ActiveUserVO user =  (ActiveUserVO) SecurityUtils.getSubject().getPrincipal();
